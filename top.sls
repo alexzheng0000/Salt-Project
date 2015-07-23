@@ -1,2 +1,5 @@
 base:
     '*'
+        - base
+        - pkgs
+        - monitor
