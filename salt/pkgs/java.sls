@@ -7,32 +7,26 @@
 {% for ver, args in java_vers.iteritems() %}
     {% if ip in args %}
         {% if ver != current_ver %}
-
 version-{{ver}}:
     file.absent:
         - name: {{java_home}}
-        {% endif %}
-
 java-{{ver}}:
     archive.extracted:
         - name: /usr/
         - source: salt://pkgs/java/files/java{{ver}}.tar
         - archive_format: tar
         - if_missing: {{java_home}}
-
         {% endif %}
-    {% else %}
+    {% elif ip == 'all' %}
 version-{{ver}}:
     file.absent:
         - name: {{java_home}}
-
 java-{{ver}}:
     archive.extracted:
         - name: /usr/
         - source: salt://pkgs/java/files/java{{ver}}.tar
         - archive_format: tar
         - if_missing: {{java_home}}
-
 java-ln-{{ver}}:
     file.symlink:
         - name: /usr/bin/java
